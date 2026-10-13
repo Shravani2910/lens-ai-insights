@@ -63,7 +63,7 @@ function LensWorkspace() {
   const [error, setError] = useState("");
   const [activeSection, setActiveSection] = useState<"findings" | "recommendations">("findings");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const isConfigured = Boolean(import.meta.env.VITE_RESEARCH_API_URL?.trim());
+  const isConfigured = Boolean(import.meta.env["VITE_RESEARCH_API_URL"]?.trim());
 
   const startResearch = async (event?: FormEvent<HTMLFormElement>) => {
     event?.preventDefault();

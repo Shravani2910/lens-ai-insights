@@ -31,9 +31,9 @@ const isText = (value: unknown): value is string =>
   typeof value === "string" && value.trim().length > 0;
 
 const isSource = (value: unknown): value is ResearchSource => {
-  if (!isRecord(value) || !isText(value.label) || !isText(value.url)) return false;
+  if (!isRecord(value) || !isText(value["label"]) || !isText(value["url"])) return false;
   try {
-    const url = new URL(value.url);
+    const url = new URL(value["url"]);
     return url.protocol === "https:" || url.protocol === "http:";
   } catch {
     return false;
@@ -43,31 +43,31 @@ const isSource = (value: unknown): value is ResearchSource => {
 export function isResearchReport(value: unknown): value is ResearchReport {
   if (
     !isRecord(value) ||
-    !isText(value.title) ||
-    !isText(value.summary) ||
-    !Array.isArray(value.findings) ||
-    value.findings.length === 0 ||
-    !Array.isArray(value.recommendations) ||
-    value.recommendations.length === 0 ||
-    !value.recommendations.every(isText)
+    !isText(value["title"]) ||
+    !isText(value["summary"]) ||
+    !Array.isArray(value["findings"]) ||
+    value["findings"].length === 0 ||
+    !Array.isArray(value["recommendations"]) ||
+    value["recommendations"].length === 0 ||
+    !value["recommendations"].every(isText)
   ) {
     return false;
   }
 
-  return value.findings.every(
+  return value["findings"].every(
     (finding) =>
       isRecord(finding) &&
-      isText(finding.title) &&
-      isText(finding.detail) &&
-      isText(finding.evidence) &&
-      Array.isArray(finding.sources) &&
-      finding.sources.length > 0 &&
-      finding.sources.every(isSource),
+      isText(finding["title"]) &&
+      isText(finding["detail"]) &&
+      isText(finding["evidence"]) &&
+      Array.isArray(finding["sources"]) &&
+      finding["sources"].length > 0 &&
+      finding["sources"].every(isSource),
   );
 }
 
 export async function requestResearch(question: string): Promise<ResearchReport> {
-  const endpoint = import.meta.env.VITE_RESEARCH_API_URL?.trim();
+  const endpoint = import.meta.env["VITE_RESEARCH_API_URL"]?.trim();
   if (!endpoint) {
     throw new ResearchApiError(
       "The research service is not configured yet. Add VITE_RESEARCH_API_URL to connect your research API.",
@@ -98,7 +98,7 @@ export async function requestResearch(question: string): Promise<ResearchReport>
     throw new ResearchApiError("The research service returned unreadable data. Please try again.");
   }
 
-  const report = isRecord(payload) && "report" in payload ? payload.report : payload;
+  const report = isRecord(payload) && "report" in payload ? payload["report"] : payload;
   if (!isResearchReport(report)) {
     throw new ResearchApiError(
       "The research service returned an incomplete report. No results were shown; please try again.",
