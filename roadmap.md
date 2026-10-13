@@ -1,0 +1,5 @@
+- [ ] Build the Lens research workspace at `/` with responsive monochrome styling.
+- [ ] Add the configurable research API service and honest request/error/retry states.
+- [ ] Add isolated, labeled sample preview and focused tests.
+- [ ] Add route metadata and document the feature structure.
+- [ ] Verify the preview and latest build diagnostics.
