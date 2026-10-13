@@ -1,5 +1,5 @@
 import { useRef, useState, type FormEvent } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
   ArrowUp,
@@ -111,12 +111,12 @@ function LensWorkspace() {
       <header className="border-b border-line-subtle bg-background">
         <div className="mx-auto flex h-[68px] max-w-[1460px] items-center justify-between px-5 md:px-10">
           <div className="flex items-center gap-3">
-            <a href="/" aria-label="Lens home" className="flex items-center gap-2.5">
+            <Link to="/" aria-label="Lens home" className="flex items-center gap-2.5">
               <span className="flex size-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
                 <Search className="size-[15px]" strokeWidth={1.8} />
               </span>
               <span className="font-display text-[24px] leading-none">lens</span>
-            </a>
+            </Link>
             <span className="hidden h-5 w-px bg-border sm:block" />
             <span className="hidden text-xs text-muted-foreground sm:inline">Research desk</span>
           </div>
