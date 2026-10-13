@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep research request/response validation in `src/features/research/research-api.ts` and sample-only report content in `sample-report.ts`; this keeps mock previews isolated from verified API results.
